@@ -1,0 +1,11 @@
+FIGURE VALIDATOR
+================
+[PASS] fig1_mechanism.pdf - vector OK, no Type3 fonts
+[PASS] fig2_comparison.pdf - vector OK, no Type3 fonts
+[WARN] fig3_heatmap.png - 180 DPI < 300 (too low)
+  -> Fix: set dpi=300 in savefig
+[WARN] fig4_schematic.pdf - CJK in math mode ($...$)
+  -> Fix: use plt.text() instead
+
+4 files checked.
+2 PASS, 2 NEED FIX

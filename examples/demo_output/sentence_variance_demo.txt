@@ -1,0 +1,14 @@
+SENTENCE VARIANCE CHECKER
+=========================
+[BEFORE - AI typical text]
+  Sentences: 6, Mean: 7.8 words
+  Variance: 3.2  [WARN] < 8.0 (AI pattern detected)
+  Short sentences: 83.3% [WARN] target 15-20%
+
+[AFTER - Nature-level rhythm]
+  Sentences: 4, Mean: 19.5 words
+  Variance: 11.7 [PASS] >= 8.0
+  Medium (13-22 words): 50% [PASS]
+  Long (>=25 words): 25% [PASS]
+
+>>> Sentence rhythm meets Nature standard

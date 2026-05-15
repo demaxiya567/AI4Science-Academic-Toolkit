@@ -368,6 +368,48 @@ Codex 会自动加载 `.codex/AGENTS.md` 里的配置，skills 立即可用。
 
 ---
 
+## 👀 效果预览
+
+> 以下演示使用**公开数据**生成，不涉及任何未发表论文。
+
+### 修图：新手风格 → 出版级
+
+| 修改前（默认 matplotlib） | 修改后（应用 toolkit 规范） |
+|--------------------------|--------------------------|
+| 默认配色 + 杂乱样式 | Okabe-Ito 色盲友好配色 + 统一字体层级 |
+| 轴标签无单位 | 标注单位 + 保留必要轴 spines |
+| 100 DPI | 300+ DPI + PDF 矢量格式 |
+| 默认 figsize | 符合期刊栏宽 |
+
+查看 `examples/demo_output/demo_before.png` vs `demo_after.png`
+
+### 写稿：AI 感文本 → Nature 级节奏
+
+```diff
+- 修改前（句长方差 3.2，AI 痕迹明显）：
+  "The model achieves good performance. The results are very promising.
+   The framework outperforms all baselines."
+
++ 修改后（句长方差 11.7，Nature 标准）：
+  "The CRA analysis reveals a structured partition of catalytic descriptors
+   into literature-covered and experiment-dependent categories. Composition-level
+   parameters show strong consensus across existing studies."
+```
+
+### 验证：投稿前数值一致性检查
+
+```bash
+$ python module_03/scripts/cross_ref_checker.py --tex main.tex --bib refs.bib
+
+[BROKEN] ref 'fig:missing_label' at main.tex:142 — no matching label
+[BROKEN] cite 'smith2024' at intro.tex:38 — not in bib file
+>>> 3 issues found — fix before submission.
+```
+
+更多演示输出见 `examples/demo_output/` 目录，运行 `pip install -r requirements.txt && python examples/run_all_demos.py` 可自行生成。
+
+---
+
 ## 📋 系统要求
 
 - **Python**: 3.8+

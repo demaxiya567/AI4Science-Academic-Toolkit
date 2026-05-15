@@ -1,0 +1,10 @@
+CROSS-REFERENCE CHECKER
+======================
+[BROKEN] ref 'fig:missing_label' at main.tex:142 - no matching label
+[BROKEN] cite 'smith2024' at intro.tex:38 - not in bib file
+
+Labels: 47 defined
+Refs: 45 used (2 broken)
+Cites: 32 used (1 broken)
+
+>>> 3 issues found - fix before submission.
