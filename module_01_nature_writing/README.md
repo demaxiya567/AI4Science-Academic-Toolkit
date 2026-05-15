@@ -12,6 +12,7 @@
 
 | 文件 | 用途 |
 |------|------|
+| `narrative_arc_checklist.md` | 叙事弧结构——三幕节奏、证据阶梯、流汇聚、节拍控制 |
 | `writing_engine_prompt.md` | AI写作prompt模板——告诉AI按Nature子刊标准写作 |
 | `prose_rhythm_checklist.md` | 句子节奏检查——句长方差、段落呼吸、转场自然度 |
 | `ai_trace_detection_checklist.md` | AI痕迹猎杀清单——词汇级+结构级双重检查 |

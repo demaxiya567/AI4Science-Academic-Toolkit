@@ -79,6 +79,7 @@ git clone https://github.com/demaxiya567/AI4Science-Academic-Toolkit.git
 
 ```
 📁 module_01_nature_writing/
+├── narrative_arc_checklist.md     ← 论文结构检查——三幕节奏、证据阶梯、流汇聚
 ├── writing_engine_prompt.md      ← 【推荐】直接复制给AI的写作prompt
 ├── prose_rhythm_checklist.md     ← 检查句子节奏（AI写作一眼就能看出来的问题）
 ├── ai_trace_detection_checklist.md  ← 猎杀AI写作痕迹（审稿人最烦的词汇列表）
