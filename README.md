@@ -406,7 +406,24 @@ $ python module_03/scripts/cross_ref_checker.py --tex main.tex --bib refs.bib
 >>> 3 issues found — fix before submission.
 ```
 
-更多演示输出见 `examples/demo_output/` 目录，运行 `pip install -r requirements.txt && python examples/run_all_demos.py` 可自行生成。
+### 更多示例图
+
+`examples/demo_output/` 目录包含以下全部演示文件（生成脚本: `examples/generate_demos.py`）：
+
+| 文件 | 类型 | 说明 |
+|------|------|------|
+| `demo_bar.png/pdf` | 柱状图 | 误差棒 + 时间序列降解 |
+| `demo_lines.png/pdf` | 折线对比 | 多方法活性对比，核心方法视觉突出 |
+| `demo_multipanel.png/pdf` | 组合图 | 2x2 面板：转化率曲线 + 模拟 XRD + 相关性热力图 + 火山图 |
+| `demo_xps.png/pdf` | 谱图 | 模拟 O 1s XPS 分峰拟合 |
+| `demo_tem.png/pdf` | 显微图 | 模拟 TEM 晶格条纹像 |
+| `demo_before.png` | 对比 | 新手风格（修改前） |
+| `demo_after.png/pdf` | 对比 | 出版级规范（修改后） |
+| `cross_ref_demo.txt` | 终端输出 | 交叉引用检查器检出断裂引用 |
+| `figure_validator_demo.txt` | 终端输出 | 图表验证器检出 DPI 和 CJK 问题 |
+| `sentence_variance_demo.txt` | 终端输出 | 句长方差分析，AI 文本 vs Nature 节奏 |
+
+所有数据均为合成数据，不涉及真实研究内容。运行 `python examples/generate_demos.py` 可自行重新生成。
 
 ---
 
