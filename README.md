@@ -271,25 +271,32 @@ python module_05_citation/scripts/validate_citations.py --bib refs.bib
 
 ## 🤖 安装为 AI 可加载的 Skills（推荐）
 
-这个工具包的内容设计为 **Claude Code / Codex 可以直接加载的 Skills**，不只是一个文档仓库。
+这个工具包的内容设计为 **Claude Code / Codex 可以直接加载的 Skills**，不只是一个文档仓库。每个模块都有 `SKILL.md` 头（YAML frontmatter），AI 能自动识别。
 
 ### 什么是 Skills？
 
-Claude Code 和 Codex 支持从 `.claude/skills/` 目录加载"技能"——每个技能是一个独立的目录，包含 `SKILL.md`（带有 YAML 描述头）和配套的脚本/模板。加载后 AI 就能理解你的意图并直接执行。
+Claude Code 和 Codex 支持从专门的 skills 目录加载"技能"——每个 skill 是一个独立目录，包含 `SKILL.md`（带有 `name:` + `description:` 头）和配套的脚本/模板。加载后 AI 就能理解你的意图并直接执行，不需要你手动解释"帮我运行这个脚本"。
 
-### 一键安装为 Claude Code Skills
+### 一键安装（所有 AI 工具通用）
 
 ```bash
-# 克隆后运行安装脚本
+# 克隆
+git clone https://github.com/demaxiya567/AI4Science-Academic-Toolkit.git
 cd AI4Science-Academic-Toolkit
-chmod +x install_skills.sh
+
+# 运行安装脚本（交互式选择安装到 Claude Code / Codex 或两者）
+chmod +x install_skills.sh    # macOS / Linux
 ./install_skills.sh
+
+# Windows 用户:
+# powershell -ExecutionPolicy Bypass -File install_skills.ps1
 ```
 
-脚本会自动将6个模块注册为 Claude Code 可加载的技能，并在启动时提示可用。
+脚本会问你安装到哪个 AI 工具，选 `3) 全部安装` 就把6个技能同时注册到 Claude Code 和 Codex。
 
-如果**想手动安装**，将模块目录链接到 Claude Code 的 skills 目录：
+### 手动安装
 
+**安装到 Claude Code：**
 ```bash
 # Linux / macOS
 ln -s "$PWD/module_01_nature_writing" ~/.claude/skills/academic-writing-engine
@@ -299,27 +306,61 @@ ln -s "$PWD/module_04_submission" ~/.claude/skills/academic-submission
 ln -s "$PWD/module_05_citation" ~/.claude/skills/academic-citation
 ln -s "$PWD/module_06_latex_toolchain" ~/.claude/skills/academic-latex
 
-# Windows
-mklink /J "%USERPROFILE%\.claude\skills\academic-writing-engine" "%CD%\module_01_nature_writing"
+# Windows（管理员终端）
+for %m in (module_01_nature_writing module_02_visualization module_03_figure_validation module_04_submission module_05_citation module_06_latex_toolchain) do mklink /J "%USERPROFILE%\.claude\skills\%~m" "%CD%\%~m"
 ```
 
-安装后启动 Claude Code，AI 会自动知道有这些技能可用。
+**安装到 Codex CLI：**
+```bash
+# 与 Claude Code 同样的方式，只是目录不同
+ln -s "$PWD/module_01_nature_writing" ~/.codex/skills/academic-writing-engine
+# ... 同理其余5个
 
-### 在 Codex 中加载为 Skills
+# 然后配置 AGENTS.md（项目根目录）
+echo "你是一名学术写作专家。已加载 academic-writing-engine、academic-visualization 等技能。" > .codex/AGENTS.md
+```
 
-Codex 通过 `AGENTS.md` 配置技能。在项目根目录创建 `.codex/AGENTS.md`：
+### 在 Codex 中的完整配置
 
+Codex 使用 `.codex/` 目录来管理配置。正确设置方式：
+
+**步骤1：安装 skills**（见上方一键安装，选 Codex 选项）
+
+**步骤2：配置 AGENTS.md（必须）**
 ```markdown
-你是一名学术写作助手，已加载以下技能：
-- academic-writing-engine: Nature级学术写作
-- academic-visualization: 出版级图表规范
-- academic-validation: 图表验证与交叉引用
+你是一名 AI for Science 学术写作专家，已加载以下技能：
+- academic-writing-engine: Nature级学术写作（prompt模板+检查清单）
+- academic-visualization: 出版级图表规范（配色+导出脚本）
+- academic-validation: 图表验证与交叉引用（Python验证脚本）
 - academic-submission: 投稿前全流程检查
 - academic-citation: 文献管理与引用审查
 - academic-latex: LaTeX工具链
+
+工作流程：
+1. 用户提供论文/数据 → 使用对应 skill 分析
+2. 需要写作帮助 → 加载 academic-writing-engine
+3. 需要制图 → 加载 academic-visualization
+4. 投稿前 → 加载 academic-submission 做全流程检查
 ```
 
-然后 Codex 就能理解你的上下文。
+**步骤3：配置 config.toml（可选，推荐）**
+```toml
+# .codex/config.toml
+approval_policy = "never"         # 不弹确认（全自动模式）
+sandbox_mode = "danger-full-access"  # 允许写文件和运行命令
+
+[sandbox]
+allow_read = ["."]                # 可读当前目录所有文件
+allow_write = ["."]               # 可写当前目录
+allow_command = [".*"]            # 可运行任意命令
+```
+
+**步骤4：启动 Codex**
+```bash
+codex -C "你的论文目录" "用 academic-writing-engine 帮我写Abstract"
+```
+
+Codex 会自动加载 `.codex/AGENTS.md` 里的配置，skills 立即可用。
 
 ### 在 ChatGPT / Claude 网页版中使用
 
